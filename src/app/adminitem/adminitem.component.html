@@ -1,0 +1,87 @@
+<div class="card" style="margin: 25px;padding: 22px;">
+    <h5 class="card-title">Store Management</h5>
+    <div class="card-body" style="width: 50rem;">
+      
+      <form>
+        <div class="form-group ">
+          <label >Name</label>
+          <input type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" class="form-control" id="name" name="name" placeholder="Enter Name">
+        </div>
+        <div class="form-group">
+          <label >Description</label>
+          <input type="text" [(ngModel)]="description" [ngModelOptions]="{standalone: true}" class="form-control" id="description" name="description" placeholder="Enter Description">
+        </div>
+        <div class="form-group">
+          <label >Email Address</label>
+          <input type="email" [(ngModel)]="emailAddress" [ngModelOptions]="{standalone: true}" class="form-control" id="emailAddress" name="emailAddress" placeholder="Enter Email">
+        </div>
+        <div class="form-group">
+          <label >Category</label>
+          <input type="text" [(ngModel)]="category" [ngModelOptions]="{standalone: true}" class="form-control" id="category" name="category" placeholder="Enter Category">
+        </div>
+        <div class="form-group">
+          <label >Address</label>
+          <input type="text" [(ngModel)]="address" [ngModelOptions]="{standalone: true}" class="form-control" id="address" name="address" placeholder="Enter Address">
+        </div>
+        <div class="form-group">
+          <label >Latitude</label>
+          <input type="text" [(ngModel)]="latitude" [ngModelOptions]="{standalone: true}" class="form-control" id="latitude" name="latitude" placeholder="Enter Latitude">
+        </div>
+        <div class="form-group">
+          <label >Longitude</label>
+          <input type="text" [(ngModel)]="longitude" [ngModelOptions]="{standalone: true}" class="form-control" id="longitude" name="longitude" placeholder="Enter Longitude">
+        </div>
+        <div class="form-group">
+          <label >Image</label>
+          <input type="file" class="form-control" (change)="onFileUpload($event)">
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-4" (click)="submitData()">Submit</button>
+      </form>
+    </div>
+  </div>
+
+<div class="card" style="margin: 25px;padding: 22px;">
+    <h5 class="card-title">Store List
+      <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (keyup)="searchByNameOrCategory($event)" class="ms-4 col-4" id="search" name="search" placeholder="Serach by Name or Category">
+    </h5>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Category</th>
+                <th scope="col">Address</th>
+                <th scope="col">Geo Location</th>
+                <th scope="col">Image</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let store of storeList">
+                <td>{{store.name}}</td>
+                <td>{{store.description}}</td>
+                <td>{{store.emailAddress}}</td>
+                <td>{{store.category}}</td>
+                <td>{{store.address}}</td>
+                <td><div *ngIf="(store.latitude !== undefined && store.latitude.trim() !== '') && 
+                    (store.longitude !== undefined && store.longitude.trim() !== '')">
+                    Lat:{{store.latitude}}, Lon: {{store.longitude}}</div></td>
+                <td><div *ngIf="store.image" class="max-size-image">
+                    <img [src]="convertBase64Image(store.image)"  alt="Image" />
+                  </div></td>
+                <td>
+                    <button type="button" class="btn btn-primary mx-2" (click)="editData(store)">Edit</button>
+                    <button type="button" class="btn btn-danger mx-2" (click)="deleteData(store)">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+
+    </div>
+</div>
